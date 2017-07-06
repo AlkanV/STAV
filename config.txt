@@ -10,7 +10,8 @@ enabled = yes
 benchmark = yes
 dnsServerList =  dnsServerList.txt
 threads = 10
-targetIp = 192.168.1.1
+#192.168.1.1
+targetIp = 10.184.105.19
 outputFile = DnsAttackResult.txt
 
 
