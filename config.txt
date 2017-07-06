@@ -6,7 +6,7 @@
 #ssdpBenchMark = 0
 
 [DNSAmplificaton]
-enabled = no
+enabled = yes
 benchmark = yes
 dnsServerList =  dnsServerList.txt
 threads = 10
@@ -39,7 +39,7 @@ targetIp = 192.168.1.1
 outputFile = SsdpAttackResult.txt
 
 [SYNFlood]
-enabled = yes
+enabled = no
 benchmark = no
 #192.168.1.1
 targetIp = 10.184.104.1
