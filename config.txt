@@ -1,0 +1,64 @@
+#[BENCHMARK]
+##Ps. Boolean integer values, 0 value meaning OFF, 1 value meaning ON
+#dnsBenchMark = 0
+#ntpBencMark = 0
+#snmpBenchMark = 0
+#ssdpBenchMark = 0
+
+[DNSAmplificaton]
+enabled = no
+benchmark = yes
+dnsServerList =  dnsServerList.txt
+threads = 10
+targetIp = 192.168.1.1
+outputFile = DnsAttackResult.txt
+
+
+[NTPAmplificaton]
+enabled = no
+benchmark = no
+ntpServerList = ntpServerList.txt
+threads = 10
+targetIp = 192.168.1.1
+outputFile = NtpAttackResult.txt
+
+[SNMPAmplificaton]
+enabled = no
+benchmark = no
+snmpServerList = SnmpServerList.txt
+threads = 10
+targetIp = 192.168.1.1
+outputFile = SnmpAttackResult.txt
+
+[SSDPAmplificaton]
+enabled = no
+benchmark = no
+ssdpServerList = SsdpServerList.txt
+threads = 10
+targetIp = 192.168.1.1
+outputFile = SsdpAttackResult.txt
+
+[SYNFlood]
+enabled = yes
+benchmark = no
+#192.168.1.1
+targetIp = 10.184.104.1
+# For adding more ports, use like 80,8000,22
+port = 8000,22,80
+packetCount = 100
+packetSize = 120
+windowSize = 64
+flooding = no
+outputFile = SynFloodAttackResult.txt
+
+[HTTPFlood]
+enabled = no
+benchmark = no
+targetURL = https://google.com
+threads = 10
+# concurrent socket number
+numberOfSocket = 100
+#Available method types: get <-> post
+method = get
+debug = 0
+outputFile = HttpAttackResult.txt
