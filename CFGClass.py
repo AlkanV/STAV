@@ -140,6 +140,7 @@ class SYNFloodCFG(object):
 		self.enabled = configParser.get(self.className, 'enabled')
 		self.benchmark = configParser.get(self.className, 'benchmark')
 		self.targetIp = configParser.get(self.className, 'targetIp')
+		self.threads = int(configParser.get(self.className,'threads'))
 		self.port = configParser.get(self.className, 'port')
 		self.packetCount = int(configParser.get(self.className, 'packetCount'))
 		self.packetSize = int(configParser.get(self.className, 'packetSize'))
@@ -152,6 +153,7 @@ class SYNFloodCFG(object):
 		print 'Enabled: ' + self.enabled
 		print 'Benchmark: ' + self.benchmark
 		print 'Target IP: ' + self.targetIp
+		print 'Threads: ' + str(self.threads)
 		print 'Port: ' + self.port
 		print 'Packet Count: ' + str(self.packetCount)
 		print 'Packet Size: ' + str(self.packetSize)
