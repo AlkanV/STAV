@@ -15,12 +15,20 @@ from CFGClass import *
 from random import randint
 from optparse import OptionParser
 import ConfigParser
+<<<<<<< HEAD
+from pinject import IP,UDP
+from multiprocessing import Process, Manager, Pool
+import urlparse, ssl
+import sys, getopt, random, time, os
+
+=======
 from multiprocessing import Process, Manager
 import urlparse
 import random
 from scapy.all import *
 from amplificationStav import files, GetDomainList, DDoS, Benchmark, Monitor
 from packetSenderManager import PacketSenderManager
+>>>>>>> 893a5459a96d3aa52a474b37f8d3e49f055faca0
 
 USAGE = '''
 %prog ddos amplification [options]	# DNS Amplification attack
@@ -48,8 +56,8 @@ LOGO = r'''
  '-------------------------------------------------------------------------'
 
 
-DEV TEAM ST - AV
-DDoS Automated Tool
+                            DEV TEAM ST - AV
+                           DDoS Automated Tool
 
 
 '''
