@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c90997dd-09b7-4415-9629-858759bc8da4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CFGClass.py" afterPath="$PROJECT_DIR$/CFGClass.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.txt" afterPath="$PROJECT_DIR$/config.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainElement.py" afterPath="$PROJECT_DIR$/mainElement.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packetSenderManager.py" afterPath="$PROJECT_DIR$/packetSenderManager.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,11 +15,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="mainElement.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mainElement.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mainElement.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="776" column="35" lean-forward="true" selection-start-line="776" selection-start-column="35" selection-end-line="776" selection-end-column="35" />
+            <state relative-caret-position="328">
+              <caret line="782" column="44" lean-forward="true" selection-start-line="782" selection-start-column="44" selection-end-line="782" selection-end-column="44" />
               <folding>
                 <element signature="e#22#32#0" expanded="true" />
               </folding>
@@ -30,10 +27,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="packetSenderManager.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="packetSenderManager.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/packetSenderManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-240">
+            <state relative-caret-position="-212">
               <caret line="18" column="10" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
               <folding>
                 <element signature="e#22#38#0" expanded="true" />
@@ -57,8 +54,8 @@
       <file leaf-file-name="config.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="43" column="34" lean-forward="false" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
+            <state relative-caret-position="240">
+              <caret line="48" column="11" lean-forward="true" selection-start-line="48" selection-start-column="11" selection-end-line="48" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -116,10 +113,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/amplificationStav.py" />
-        <option value="$PROJECT_DIR$/mainElement.py" />
         <option value="$PROJECT_DIR$/packetSenderManager.py" />
         <option value="$PROJECT_DIR$/CFGClass.py" />
         <option value="$PROJECT_DIR$/config.txt" />
+        <option value="$PROJECT_DIR$/mainElement.py" />
       </list>
     </option>
   </component>
@@ -542,13 +539,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainElement.py">
+    <entry file="file://$PROJECT_DIR$/CFGClass.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="776" column="35" lean-forward="true" selection-start-line="776" selection-start-column="35" selection-end-line="776" selection-end-column="35" />
-          <folding>
-            <element signature="e#22#32#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="142" column="70" lean-forward="false" selection-start-line="142" selection-start-column="70" selection-end-line="142" selection-end-column="70" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -562,28 +557,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CFGClass.py">
+    <entry file="file://$PROJECT_DIR$/packetSenderManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="142" column="70" lean-forward="false" selection-start-line="142" selection-start-column="70" selection-end-line="142" selection-end-column="70" />
-          <folding />
+        <state relative-caret-position="-212">
+          <caret line="18" column="10" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
+          <folding>
+            <element signature="e#22#38#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="43" column="34" lean-forward="false" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
+        <state relative-caret-position="240">
+          <caret line="48" column="11" lean-forward="true" selection-start-line="48" selection-start-column="11" selection-end-line="48" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/packetSenderManager.py">
+    <entry file="file://$PROJECT_DIR$/mainElement.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-240">
-          <caret line="18" column="10" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
+        <state relative-caret-position="328">
+          <caret line="782" column="44" lean-forward="true" selection-start-line="782" selection-start-column="44" selection-end-line="782" selection-end-column="44" />
           <folding>
-            <element signature="e#22#38#0" expanded="true" />
+            <element signature="e#22#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
