@@ -11,7 +11,7 @@ benchmark = yes
 dnsServerList =  dnsServerList.txt
 threads = 10
 #192.168.1.1
-targetIp = 10.184.105.19
+targetIp = 192.168.1.1
 outputFile = DnsAttackResult.txt
 
 
@@ -48,10 +48,10 @@ benchmark = no
 targetIp = 192.168.1.103
 port = 8000
 threads = 10
-packetCount = 100
+packetCount = 1000
 packetSize = 120
 windowSize = 64
-flooding = no
+flooding = yes
 outputFile = SynFloodAttackResult.txt
 
 [HTTPFlood]

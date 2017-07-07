@@ -1,18 +1,12 @@
 #!/usr/bin/env python
+import logging
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 import sys
 import time
 import socket
 import struct
 import threading
-import subprocess
-
-#from scapy.packet import ls
-#from scapy.sendrecv import srloop
-#from scapy.volatile import RandShort
-from scapy.layers.inet import IP, TCP
-
 from CFGClass import *
-from random import randint
 from optparse import OptionParser
 import ConfigParser
 from multiprocessing import Process, Manager
@@ -773,8 +767,9 @@ def main():
                             event.clear()
 
                     if configFileHelper.synFlood.enabled == 'yes':
-                        print ''g
-                        print 'SYN FLOOD DDoS HAS STARTED...'
+                        print ''
+                        print 'SYN DDoS HAS STARTED...'
+                        print 'SYN FLOODING MODE ' + str(configFileHelper.synFlood.flooding).upper()
                         event = threading.Event()
                         event.set()
                         try:
@@ -783,7 +778,7 @@ def main():
                             monitorNetwork()
                             event.clear()
                         except KeyboardInterrupt:
-                            print '\nInterrupted..'
+                            print '\nInterrupted in main..'
                             event.clear()
                         # else:
                             # 	print 'Supply proper argument'
