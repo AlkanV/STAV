@@ -45,10 +45,26 @@ outputFile = SsdpAttackResult.txt
 [SYNFlood]
 enabled = yes
 benchmark = no
+<<<<<<< HEAD
+#192.168.1.1
+targetIp = 192.168.1.102
+# For adding more ports, use like 80,8000,22
+threads = 10
+port = 80
+=======
 targetIp = 192.168.1.103
 port = 8000
+<<<<<<< HEAD
+threads = 50
+>>>>>>> 36cf8f99a9d3cb4594bb98cca77f15e19aa8b80f
+=======
 threads = 10
+<<<<<<< HEAD
 packetCount = 1000
+=======
+>>>>>>> 70b0a6e5ab0d94b645cc73883de8415387dcb59d
+packetCount = 100
+>>>>>>> 9bc3e0f3639726cd525cae77ff7be4bbbcea1eda
 packetSize = 120
 windowSize = 64
 flooding = yes
