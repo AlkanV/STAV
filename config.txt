@@ -6,7 +6,7 @@
 #ssdpBenchMark = 0
 
 [DNSAmplificaton]
-enabled = yes
+enabled = no
 benchmark = yes
 dnsServerList =  dnsServerList.txt
 threads = 10
@@ -40,10 +40,10 @@ targetIp = 192.168.1.1
 outputFile = SsdpAttackResult.txt
 
 [SYNFlood]
-enabled = no
+enabled = yes
 benchmark = no
 #192.168.1.1
-targetIp = 10.184.104.1
+targetIp = 10.184.104.213
 # For adding more ports, use like 80,8000,22
 port = 8000,22,80
 packetCount = 100
