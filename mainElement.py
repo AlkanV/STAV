@@ -20,7 +20,7 @@ import urlparse
 import random
 from scapy.all import *
 from amplificationStav import files, GetDomainList, DDoS, Benchmark, Monitor
-from packetSenderManager import PacketSenderManager
+from packetSenderManager import PacketSenderManager, monitorNetwork
 
 USAGE = '''
 %prog ddos amplification [options]	# DNS Amplification attack
@@ -777,8 +777,9 @@ def main():
                         event.set()
                         try:
                             packetSenderManager = PacketSenderManager(configFileHelper, 'TCP', event)
-                            packetSenderManager.startTCPSender()
-                            packetSenderManager.monitorNetwork()
+                            packetSenderManager.stress()
+                            monitorNetwork()
+                            event.clear()
                         except KeyboardInterrupt:
                             print '\nInterrupted..'
                             event.clear()

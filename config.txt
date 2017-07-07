@@ -39,14 +39,23 @@ threads = 10
 targetIp = 192.168.1.1
 outputFile = SsdpAttackResult.txt
 
+#192.168.1.1
+#10.184.104.213
+# For adding more ports, use like; port: 80,8000,22
 [SYNFlood]
 enabled = yes
 benchmark = no
+<<<<<<< HEAD
 #192.168.1.1
 targetIp = 192.168.1.102
 # For adding more ports, use like 80,8000,22
 threads = 10
 port = 80
+=======
+targetIp = 192.168.1.103
+port = 8000
+threads = 50
+>>>>>>> 36cf8f99a9d3cb4594bb98cca77f15e19aa8b80f
 packetCount = 100
 packetSize = 120
 windowSize = 64
