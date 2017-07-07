@@ -18,7 +18,7 @@ from pinject import IP,UDP
 from multiprocessing import Process, Manager, Pool
 import urlparse, ssl
 import sys, getopt, random, time, os
-#from scapy.all import *
+
 
 USAGE = '''
 %prog ddos amplification [options]	# DNS Amplification attack
@@ -46,8 +46,8 @@ LOGO = r'''
  '-------------------------------------------------------------------------'
 
 
-DEV TEAM ST - AV
-DDoS Automated Tool
+                            DEV TEAM ST - AV
+                           DDoS Automated Tool
 
 
 '''
