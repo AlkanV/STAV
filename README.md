@@ -1,4 +1,5 @@
 
+```
  .-------------------------------------------------------------------------.
 | .-----------------------------------------------------------------------. |
 | |    _______          _________              __            ____   ____  | |
@@ -10,7 +11,7 @@
 | |                                                                       | |
 | '-----------------------------------------------------------------------' |
  '-------------------------------------------------------------------------'
-
+ 
 ddos attack [options]			# DNS Amplification attack
 ddos attack [options]			# NTP Amplification attack
 ddos attack [options]			# SNMP Amplification attack
@@ -18,7 +19,6 @@ ddos attack [options]			# SSDP Amplification attack
 ddos amplification BENCHMARK [options]	# Benchmarking Amplification
 ddos syn [options]			# SYN Flood attack
 ddos http [opitons]			# HTTP Header Package attack
-
 
 HELP = (
     '-d --dns => Dns file required parameter. E.g. -d dnsServerList.txt',
@@ -81,3 +81,4 @@ OPTIONS = (
     (('-b', '--debugMode'), dict(dest='debugMode', type=int, default=0, help=HELP[16])),
     (('-x', '--write'), dict(dest='write', type="string", default="no", help=HELP[17]))
 )
+```
