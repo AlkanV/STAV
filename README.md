@@ -1,4 +1,9 @@
 
+# THIS SOFTWARE IS PROVIDED FOR EDUCATIONAL USE ONLY! IF YOU ENGAGE IN ANY ILLEGAL ACTIVITY THE AUTHOR DOES NOT TAKE ANY RESPONSIBILITY FOR IT. BY USING THIS SOFTWARE YOU AGREE WITH THESE TERMS.
+
+
+
+
 ```
  .-------------------------------------------------------------------------.
 | .-----------------------------------------------------------------------. |
@@ -19,6 +24,10 @@ ddos attack [options]			# SSDP Amplification attack
 ddos amplification BENCHMARK [options]	# Benchmarking Amplification
 ddos syn [options]			# SYN Flood attack
 ddos http [opitons]			# HTTP Header Package attack
+
+
+
+
 
 HELP = (
     '-d --dns => Dns file required parameter. E.g. -d dnsServerList.txt',
